@@ -55,50 +55,81 @@ int isPowerOf2(int aa)
 {
     return (aa && !(aa & (aa-1)));
 }
+// int n,x,y;
+// map<int,vector<int>> adj;
+// map<pair<int,int>,int> edge_pos;
+// vector<int> cnt ,val;
+// deque<int> bfs;
 int n;
-vector<int> v;
-public:
-    void input()
+vector<pair<int, int>> v;
+
+public : 
+void input()
+{
+    cin >> n;
+    for (int i = 0; i < n - 1; i++)
     {
-        cin>>n;
-        v.resize(n);
-        for(auto &i: v)
-        cin>>i;
+    int x, y;
+    cin >> x >> y;
+    v.push_back({x, y});
+    }
+    // cin >> n;
+    // for (int i = 1; i < n; ++i)
+    // {
+    // cin >> x >> y;
+    // adj[x].push_back(y);
+    // adj[y].push_back(x);
+    // edge_pos[{x, y}] = edge_pos[{y, x}] = i;
+    // }
+    // cnt.resize(n+1);
+    // val.resize(n+1);
     }
     void solve()
     {
-        int c=0,sum=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            {
-                c++;
-                sum+=2;
-            }
-        }
-        if(c%2!=0)
-        {
-        cout<<-1<<endl;
-        return;
-        }
-        if(c==0)
-        {
-        cout<<1<<endl;
-        return;
-        }
-        sum=sum/2;
-        int t=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            t=t+2;
-            if(t==sum)
-            {
-                cout<<i+1<<endl;
-                return;
-            }
-        }
+        // int ans=1;
+        // vector<bool> vis(n+1,false);
+        // bfs.push_back(1);
+        // vis[1]=true;
+        // val[1]=0;
+        // cnt[1]==0;
+        // while(bfs.size()>0)
+        // {
+        //     x=bfs.front();
+        //     for(auto &it: adj[x])
+        //     {
+        //         if(!vis[it])
+        //         {
+        //             vis[it]=true;
+        //             if(edge_pos[{it,x}]>val[x])
+        //             cnt[it]=cnt[x];
+        //             else
+        //             cnt[it]=cnt[x]+1;
+        //             val[it]=edge_pos[{it,x}];
+        //             ans=max(ans,cnt[it]);
+        //             bfs.push_back(it);
+        //         }
+        //     }
+        //     bfs.pop_front();
+        // }
 
+        // cout<<ans+1<<endl;
+
+    vector<int> degree(n + 1, 0);
+    for (const auto &p : v)
+    {
+    degree[p.first]++;
+    degree[p.second]++;
+    }
+
+    int ans = 0;
+    for (int i = 1; i <= n; i++)
+    {
+    if (degree[i] == 1)
+    {
+        ans++;
+    }
+    }
+    cout << ans << endl;
     }
 };
 /*------------------------------------------------------------------------------------------------------------------------------*/

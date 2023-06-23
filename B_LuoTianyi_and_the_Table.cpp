@@ -55,50 +55,79 @@ int isPowerOf2(int aa)
 {
     return (aa && !(aa & (aa-1)));
 }
-int n;
-vector<int> v;
 public:
     void input()
     {
-        cin>>n;
-        v.resize(n);
-        for(auto &i: v)
-        cin>>i;
     }
     void solve()
     {
-        int c=0,sum=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            {
-                c++;
-                sum+=2;
-            }
-        }
-        if(c%2!=0)
-        {
-        cout<<-1<<endl;
-        return;
-        }
-        if(c==0)
-        {
-        cout<<1<<endl;
-        return;
-        }
-        sum=sum/2;
-        int t=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            t=t+2;
-            if(t==sum)
-            {
-                cout<<i+1<<endl;
-                return;
-            }
-        }
+    ll n, m, temp, i, check;
+    cin >> n >> m;
+    ll min1 = 10e5, min2 = 10e5, max1 = -10e5, max2 = -10e5;
+    ll arr[m * n], ans;
 
+    if (m * n == 1)
+    {
+    cin >> temp;
+    cout << 0 <<endl;
+    return ;
+    }
+    else if (m * n == 2)
+    {
+    cin >> min1;
+    cin >> max1;
+    if (max1 < min1)
+    {
+        temp = min1;
+        min1 = max1;
+        max1 = temp;
+    }
+    cout << max1 - min1 << endl;
+    return;
+    }
+
+    for (i = 0; i < m * n; i++)
+    cin >> arr[i];
+
+    for (i = 0; i < m * n; i++)
+    if (arr[i] > max1)
+        max1 = arr[i];
+
+    check = 0;
+    for (i = 0; i < m * n; i++)
+    {
+    if (arr[i] == max1)
+    {
+        if (check == 0)
+        {
+            check = 1;
+            continue;
+        }
+    }
+    if (arr[i] > max2)
+        max2 = arr[i];
+    }
+
+    for (i = 0; i < m * n; i++)
+    if (arr[i] < min1)
+        min1 = arr[i];
+
+    check = 0;
+    for (i = 0; i < m * n; i++)
+    {
+    if (arr[i] == min1)
+    {
+        if (check == 0)
+        {
+            check = 1;
+            continue;
+        }
+    }
+    if (arr[i] < min2)
+        min2 = arr[i];
+    }
+    ans = max(max1 * (m * n - 1) - (min(m, n) - 1) * (min2) - ((max(m, n) - 1) * min(m, n)) * (min1), -1 * (min1 * (m * n - 1) - (min(m, n) - 1) * (max2) - ((max(m, n) - 1) * min(m, n)) * (max1)));
+    cout << ans << endl;
     }
 };
 /*------------------------------------------------------------------------------------------------------------------------------*/

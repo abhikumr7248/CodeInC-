@@ -10,6 +10,7 @@ using namespace std;
 #define ull unsigned long long
 #define ll signed long long
 #define ld long double
+#define pi pair<int, int>
 #define to_low(s) transform(s.begin(), s.end(), s.begin(), ::tolower); // convert string to lowercase
 #define to_up(s) transform(s.begin(), s.end(), s.begin(), ::toupper);  // convert string to uppercase
 /*------------------------------------------------------------------------------------------------------------------------------*/
@@ -55,50 +56,28 @@ int isPowerOf2(int aa)
 {
     return (aa && !(aa & (aa-1)));
 }
-int n;
-vector<int> v;
 public:
     void input()
     {
-        cin>>n;
-        v.resize(n);
-        for(auto &i: v)
-        cin>>i;
     }
     void solve()
     {
-        int c=0,sum=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            {
-                c++;
-                sum+=2;
-            }
-        }
-        if(c%2!=0)
-        {
-        cout<<-1<<endl;
-        return;
-        }
-        if(c==0)
-        {
-        cout<<1<<endl;
-        return;
-        }
-        sum=sum/2;
-        int t=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            t=t+2;
-            if(t==sum)
-            {
-                cout<<i+1<<endl;
-                return;
-            }
-        }
-
+        int n; 
+        cin>>n;
+    vector<pi> ans;
+    int l=0, r=n-1;
+    while (l<r) 
+    {
+        ans.push_back({3*l,3*r+2});
+        ++l, --r;
+    }
+    if (n&1) {
+        ans.push_back({3*l,3*l+2});
+    }
+    cout<<ans.size()<<endl;
+    for (auto x:ans) {
+        cout<<x.first+1<<' '<<x.second+1<<endl;
+    }
     }
 };
 /*------------------------------------------------------------------------------------------------------------------------------*/

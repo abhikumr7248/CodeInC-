@@ -55,50 +55,53 @@ int isPowerOf2(int aa)
 {
     return (aa && !(aa & (aa-1)));
 }
-int n;
-vector<int> v;
 public:
     void input()
     {
-        cin>>n;
-        v.resize(n);
-        for(auto &i: v)
-        cin>>i;
     }
     void solve()
     {
-        int c=0,sum=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            {
-                c++;
-                sum+=2;
-            }
-        }
-        if(c%2!=0)
-        {
-        cout<<-1<<endl;
-        return;
-        }
-        if(c==0)
-        {
-        cout<<1<<endl;
-        return;
-        }
-        sum=sum/2;
-        int t=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            t=t+2;
-            if(t==sum)
-            {
-                cout<<i+1<<endl;
-                return;
-            }
-        }
+    int n;
+    cin >> n;
+    int a[n], b[n];
+    for (int i = 0; i < n; i++)
+    {
+    cin >> a[i];
+    }
+    for (int i = 0; i < n; i++)
+    {
+    cin >> b[i];
+    }
+    int count1 = 0, count2 = 0;
+    for (int i = 0; i < n; i++)
+    {
+    if (a[i] == 1 && b[i] == 0)
+    {
+        count1++;
+    }
+    if (b[i] == 1 && a[i] == 0)
+    {
+        count2++;
+    }
+    }
 
+    if (count1 != 0)
+    {
+    int k = (count2 + 1) % count1;
+    if (k == 0)
+    {
+        k = (count2 + 1) / count1;
+    }
+    else
+    {
+        k = (count2 + 1) / count1 + 1;
+    }
+    cout << k << endl;
+    }
+    else
+    {
+    cout << -1 << endl;
+    }
     }
 };
 /*------------------------------------------------------------------------------------------------------------------------------*/
@@ -107,16 +110,16 @@ int main(void)
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    int n;
-    cin >> n;
-    Solution S[n];
-    for (int i = 0; i < n; ++i)
-    {
-        S[i].input();
-        S[i].solve();
-    }
-    // Solution S;
+    // int n;
+    // cin >> n;
+    // Solution S[n];
+    // for (int i = 0; i < n; ++i)
+    // {
+    //     S[i].input();
+    //     S[i].solve();
+    // }
+    Solution S;
     // S.input();
-    // S.solve();
+    S.solve();
     return 0;
 }

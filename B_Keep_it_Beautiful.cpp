@@ -55,50 +55,44 @@ int isPowerOf2(int aa)
 {
     return (aa && !(aa & (aa-1)));
 }
-int n;
-vector<int> v;
 public:
     void input()
     {
-        cin>>n;
-        v.resize(n);
-        for(auto &i: v)
-        cin>>i;
     }
     void solve()
     {
-        int c=0,sum=0;
-        for(int i=0;i<n;++i)
+    int q;
+    cin >> q;
+    int x;
+    cin >> x;
+    cout << 1;
+    int pr = x;
+    bool tr = 1;
+    int mn = x, mx = 1e9 + 10;
+    for (int i = 1; i < q; ++i)
+    {
+    cin >> x;
+    if (x >= mn && x <= mx)
+    {
+        mn = x;
+        cout << 1;
+    }
+    else
+    {
+        if (tr && x <= pr)
         {
-            if(v[i]==2)
-            {
-                c++;
-                sum+=2;
-            }
+            cout << 1;
+            mn = x;
+            mx = pr;
+            tr = 0;
         }
-        if(c%2!=0)
+        else
         {
-        cout<<-1<<endl;
-        return;
+            cout << 0;
         }
-        if(c==0)
-        {
-        cout<<1<<endl;
-        return;
-        }
-        sum=sum/2;
-        int t=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            t=t+2;
-            if(t==sum)
-            {
-                cout<<i+1<<endl;
-                return;
-            }
-        }
-
+    }
+    }
+    cout << endl;
     }
 };
 /*------------------------------------------------------------------------------------------------------------------------------*/

@@ -56,49 +56,86 @@ int isPowerOf2(int aa)
     return (aa && !(aa & (aa-1)));
 }
 int n;
-vector<int> v;
+vector<string> s;
 public:
     void input()
     {
         cin>>n;
-        v.resize(n);
-        for(auto &i: v)
-        cin>>i;
+        s.resize(((2*n)-2));
+        for(auto &it: s)
+        cin>>it;
+
     }
     void solve()
     {
-        int c=0,sum=0;
-        for(int i=0;i<n;++i)
+        // unordered_map<char,int> mp;
+        // for(auto &it: s)
+        // {
+        //     for(auto &i: it)
+        //     mp[i]++;
+        // }
+        // string ans;
+        // while(n>0)
+        // {
+        //     for(auto &i: mp)
+        //     {
+        //         if(i.second>0)
+        //         {
+        //             ans.push_back(i.first);
+        //             i.second--;
+        //             n--;
+        //         }
+        //         if(n<=0)
+        //         break;
+                
+        //     }
+        // }
+        // mp.clear();
+        // for(auto &i: ans)
+        // {
+        //     mp[i]++;
+        // }
+        // int c=0;
+        // for(auto &it: mp)
+        // {
+        //     if(it.second%2!=0 && c>1)
+        //     {
+        //         cout<<"NO"<<endl;
+        //         return;
+        //     }
+        //     else if(it.second%2!=0)
+        //     c++;
+        // }
+        // cout<<"YES"<<endl;
+        string a = "", b = "";
+        for (auto &s : s)
         {
-            if(v[i]==2)
-            {
-                c++;
-                sum+=2;
-            }
-        }
-        if(c%2!=0)
+        if (s.size() == n - 1)
         {
-        cout<<-1<<endl;
-        return;
+            if (a.size())
+                b = s;
+            else
+                a = s;
         }
-        if(c==0)
+        }
+        if (a.substr(1, n - 2) == b.substr(0, n - 2))
         {
-        cout<<1<<endl;
-        return;
         }
-        sum=sum/2;
-        int t=0;
-        for(int i=0;i<n;++i)
+        else
         {
-            if(v[i]==2)
-            t=t+2;
-            if(t==sum)
-            {
-                cout<<i+1<<endl;
-                return;
-            }
+        swap(a, b);
         }
-
+        string str = a + b.back();
+        // cout << str << endl;
+        for (int i = 0; i < n / 2; i++)
+        {
+        if (str[i] != str[n - i - 1])
+        {
+            cout << "NO"<<endl;
+            return;
+        }
+        }
+        cout << "YES"<<endl;
     }
 };
 /*------------------------------------------------------------------------------------------------------------------------------*/

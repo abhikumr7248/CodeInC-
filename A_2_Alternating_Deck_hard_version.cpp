@@ -55,50 +55,36 @@ int isPowerOf2(int aa)
 {
     return (aa && !(aa & (aa-1)));
 }
-int n;
-vector<int> v;
+int cnt[2][2];
 public:
     void input()
     {
-        cin>>n;
-        v.resize(n);
-        for(auto &i: v)
-        cin>>i;
     }
     void solve()
     {
-        int c=0,sum=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            {
-                c++;
-                sum+=2;
-            }
-        }
-        if(c%2!=0)
-        {
-        cout<<-1<<endl;
-        return;
-        }
-        if(c==0)
-        {
-        cout<<1<<endl;
-        return;
-        }
-        sum=sum/2;
-        int t=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            t=t+2;
-            if(t==sum)
-            {
-                cout<<i+1<<endl;
-                return;
-            }
-        }
+    int n;
+    cin >> n;
+    --n;
+    cnt[0][0] = cnt[0][1] = cnt[1][0] = cnt[1][1] = 0;
+    cnt[0][0]++;
+    int tmp = 2, timer = 0, sum = 1;
+    bool b = 1;
+    while (n >= tmp)
+    {
+    ++timer;
+    n -= tmp;
+    cnt[b][(sum & 1)] += (tmp / 2) + (tmp % 2 == 1);
+    cnt[b][1 - (sum & 1)] += (tmp / 2);
 
+    sum += tmp;
+    tmp++;
+    if (timer % 2 == 0)
+        b = 1 - b;
+    }
+    cnt[b][(sum & 1)] += (n / 2) + (n % 2 == 1);
+    cnt[b][1 - (sum & 1)] += (n / 2);
+
+    cout << cnt[0][0] << ' ' << cnt[0][1] << ' ' << cnt[1][0] << ' ' << cnt[1][1] << endl;
     }
 };
 /*------------------------------------------------------------------------------------------------------------------------------*/

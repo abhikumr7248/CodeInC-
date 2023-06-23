@@ -55,50 +55,45 @@ int isPowerOf2(int aa)
 {
     return (aa && !(aa & (aa-1)));
 }
-int n;
-vector<int> v;
+int a,b,c;
+ll k;
 public:
     void input()
     {
-        cin>>n;
-        v.resize(n);
-        for(auto &i: v)
-        cin>>i;
+        cin>>a>>b>>c;
+        cin>>k;
     }
-    void solve()
+    void solve(vector<int> pw)
     {
-        int c=0,sum=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            {
-                c++;
-                sum+=2;
-            }
-        }
-        if(c%2!=0)
-        {
-        cout<<-1<<endl;
-        return;
-        }
-        if(c==0)
-        {
-        cout<<1<<endl;
-        return;
-        }
-        sum=sum/2;
-        int t=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            t=t+2;
-            if(t==sum)
-            {
-                cout<<i+1<<endl;
-                return;
-            }
-        }
-
+    ll sum = 0;
+    int ansa, ansb, ansc;
+    bool flag = 0;
+    for (int i = pw[a]; i < pw[a + 1]; ++i)
+    {
+    int mx = pw[c + 1] - 1;
+    int mi=pw[c];
+    
+    mi -= i;
+    mx -=i;
+    mx = min(mx, pw[b + 1] - 1);
+    mi = max(mi, pw[b]);
+    int len = mx - mi + 1;
+    if (mx<mi) 
+    continue; 
+    
+    if (sum < k && sum + len >= k)
+    {
+        flag = 1;
+        ansa = i;
+        ansb = mi + (k - sum) - 1;
+        ansc=ansa + ansb;
+    }
+    sum += len;
+    }
+    if (flag!=0)
+    cout<<ansa<<" + "<<ansb<<" = "<<ansc<<endl;
+    else
+    cout<<-1<<endl;
     }
 };
 /*------------------------------------------------------------------------------------------------------------------------------*/
@@ -110,10 +105,14 @@ int main(void)
     int n;
     cin >> n;
     Solution S[n];
+    vector<int> pw(10);
+    pw[1] = 1;
+    for (int i = 2; i <= 7; ++i)
+    pw[i] = pw[i - 1] * 10;
     for (int i = 0; i < n; ++i)
     {
         S[i].input();
-        S[i].solve();
+        S[i].solve(pw);
     }
     // Solution S;
     // S.input();

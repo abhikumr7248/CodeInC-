@@ -55,50 +55,68 @@ int isPowerOf2(int aa)
 {
     return (aa && !(aa & (aa-1)));
 }
-int n;
-vector<int> v;
 public:
+// int n;
+// vector<int> v;
     void input()
     {
-        cin>>n;
-        v.resize(n);
-        for(auto &i: v)
-        cin>>i;
+        // cin>>n;
+        // v.resize(n);
+        // for(auto &it: v)
+        // cin>>it;
     }
     void solve()
     {
-        int c=0,sum=0;
-        for(int i=0;i<n;++i)
+        // int neg=0,pos=0;
+        // for(int i=0;i<n;++i)
+        // {
+        //     if(v[i]==1)
+        //     pos++;
+        //     else
+        //     neg++;
+        // }
+        // if(pos>=neg && neg%2==0)
+        // cout<<0<<endl;
+        // else if(pos>=neg && neg%2!=0)
+        // cout<<1<<endl;
+        // else if(pos<neg)
+        // {
+        //     int x=neg-pos;
+        //     x--;
+        //     neg=neg-x;
+        //     int ans=x;
+        //     if(neg%2!=0)
+        //     ans++;
+        //     cout<<ans<<endl;
+        // }
+        int n;
+        cin >> n;
+        int cnt1 = 0, cnt2 = 0;
+        for (int i = 0; i < n; i++)
         {
-            if(v[i]==2)
-            {
-                c++;
-                sum+=2;
-            }
-        }
-        if(c%2!=0)
+        int x;
+        cin >> x;
+        if (x == 1)
         {
-        cout<<-1<<endl;
-        return;
+            cnt1++;
         }
-        if(c==0)
+        else
         {
-        cout<<1<<endl;
-        return;
+            cnt2++;
         }
-        sum=sum/2;
-        int t=0;
-        for(int i=0;i<n;++i)
+        }
+        int ans = 0;
+        while (cnt1 < cnt2)
         {
-            if(v[i]==2)
-            t=t+2;
-            if(t==sum)
-            {
-                cout<<i+1<<endl;
-                return;
-            }
+        cnt1++;
+        cnt2--;
+        ans++;
         }
-
+        if (cnt2 % 2 == 1)
+        {
+        ans++;
+        }
+        cout << ans << endl;
     }
 };
 /*------------------------------------------------------------------------------------------------------------------------------*/

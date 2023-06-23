@@ -55,50 +55,45 @@ int isPowerOf2(int aa)
 {
     return (aa && !(aa & (aa-1)));
 }
-int n;
-vector<int> v;
 public:
     void input()
     {
-        cin>>n;
-        v.resize(n);
-        for(auto &i: v)
-        cin>>i;
     }
     void solve()
     {
-        int c=0,sum=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            {
-                c++;
-                sum+=2;
-            }
-        }
-        if(c%2!=0)
-        {
-        cout<<-1<<endl;
-        return;
-        }
-        if(c==0)
-        {
-        cout<<1<<endl;
-        return;
-        }
-        sum=sum/2;
-        int t=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            t=t+2;
-            if(t==sum)
-            {
-                cout<<i+1<<endl;
-                return;
-            }
-        }
+    int n, m;
+    cin >> n >> m;
+    vector<bool> mark(m + 2);
+    vector<int> s;
+    int cl = 0, cr = 0, cnt = 0, ans = 0, len = 0;
+    for (int i = 1; i <= n; i++)
+    {
+    int x;
+    cin >> x;
+    if (x == -1)
+        cl++;
+    else if (x == -2)
+        cr++;
+    else if (!mark[x])
+        mark[x] = 1, cnt++;
+    }
+    mark[m + 1] = 1;
+    s.push_back(0);
+    for (int i = 1; i <= m + 1; i++)
+    if (mark[i])
+    {
+        s.push_back(len);
+        len = 0;
+    }
+    else
+        len++;
+    for (int i = 1; i < s.size(); i++)
+    s[i] += s[i - 1];
 
+    for (int i = 0; i < s.size(); i++)
+    ans = max(ans, cnt + min(cl, s[i]) + min(cr, m - cnt - s[i]));
+    
+    cout << ans << endl;
     }
 };
 /*------------------------------------------------------------------------------------------------------------------------------*/

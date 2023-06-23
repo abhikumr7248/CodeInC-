@@ -55,50 +55,65 @@ int isPowerOf2(int aa)
 {
     return (aa && !(aa & (aa-1)));
 }
-int n;
-vector<int> v;
+string s;
 public:
     void input()
     {
-        cin>>n;
-        v.resize(n);
-        for(auto &i: v)
-        cin>>i;
+        cin>>s;
     }
     void solve()
     {
-        int c=0,sum=0;
-        for(int i=0;i<n;++i)
+        int n=s.length();
+        int x=0;
+        for(int i=0;i<n-1;++i)
         {
-            if(v[i]==2)
+            if(s[i]=='1')
             {
-                c++;
-                sum+=2;
+                x=1;
+                break;
+            }
+            if(s[i]=='0')
+            {
+                x=0;
+                break;
             }
         }
-        if(c%2!=0)
+        int i=0;
+        if(x==0)
         {
-        cout<<-1<<endl;
-        return;
-        }
-        if(c==0)
-        {
-        cout<<1<<endl;
-        return;
-        }
-        sum=sum/2;
-        int t=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            t=t+2;
-            if(t==sum)
+            while(true && i<n)
             {
-                cout<<i+1<<endl;
-                return;
+                if(s[i]=='?')
+                {
+                s[i]='0';
+                i++;
+                }
+                else
+                break;
+                
             }
         }
-
+        if (x == 1)
+        {
+            while (true && i < n)
+            {
+                if (s[i] == '?')
+                {
+                s[i] = '1';
+                i++;
+                }
+                else
+                break;
+            }
+        }
+        for(i=1;i<n;++i)
+        {
+            if(s[i-1]=='0' && s[i]=='?')
+            s[i]='0';
+            else if(s[i-1]=='1' && s[i]=='?')
+            s[i]='1';
+        }
+        cout<<s<<endl;
     }
 };
 /*------------------------------------------------------------------------------------------------------------------------------*/

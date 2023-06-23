@@ -56,49 +56,119 @@ int isPowerOf2(int aa)
     return (aa && !(aa & (aa-1)));
 }
 int n;
-vector<int> v;
+string s;
+
 public:
     void input()
     {
-        cin>>n;
-        v.resize(n);
-        for(auto &i: v)
-        cin>>i;
+    cin >> n;
+    cin >> s;
     }
+    void s2()
+    {
+    vector<int> c(n);
+    int start = 0;
+    int end = n - 1;
+
+    while (start < end)
+    {
+    if (s[start] == ')' && s[end] == ')')
+    {
+        c[start] = 2;
+        c[end] = 1;
+        start += 1;
+        end -= 1;
+    }
+    else if (s[start] == '(' && s[end] == '(')
+    {
+        c[start] = 1;
+        c[end] = 2;
+        start += 1;
+        end -= 1;
+    }
+    else if (s[start] == ')' && s[end] == '(')
+    {
+        c[end] = 2;
+        c[start] = 2;
+        start += 1;
+        end -= 1;
+    }
+    else
+    {
+        c[start] = 1;
+        c[end] = 1;
+        start += 1;
+        end -= 1;
+    }
+    }
+
+    cout << 2 << endl;
+    for (int i = 0; i < n; i++)
+    cout << c[i] << " ";
+    cout << endl;
+    }
+    
     void solve()
     {
-        int c=0,sum=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            {
-                c++;
-                sum+=2;
-            }
-        }
-        if(c%2!=0)
-        {
-        cout<<-1<<endl;
-        return;
-        }
-        if(c==0)
-        {
-        cout<<1<<endl;
-        return;
-        }
-        sum=sum/2;
-        int t=0;
-        for(int i=0;i<n;++i)
-        {
-            if(v[i]==2)
-            t=t+2;
-            if(t==sum)
-            {
-                cout<<i+1<<endl;
-                return;
-            }
-        }
+    int ic = 0;
 
+    for (int i = 0; i < n; i++)
+    {
+    if (s[i] == '(')
+        ic += 1;
+    else
+        ic -= 1;
+    }
+
+    if (ic != 0)
+    {
+    cout << -1 << endl;
+    return;
+    }
+
+    int ch = 0;
+    int zc = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+    if (s[i] == '(')
+        zc += 1;
+    else
+        zc -= 1;
+    if (zc < 0)
+    {
+        ch += 1;
+        break;
+    }
+    }
+
+    zc = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+    if (s[i] == ')')
+        zc += 1;
+    else
+        zc -= 1;
+
+    if (zc < 0)
+    {
+        ch += 1;
+        break;
+    }
+    }
+
+    if (ch < 2)
+    {
+    cout << 1 << endl;
+    for (int i = 0; i < n; i++)
+        cout << 1 <<" ";
+    cout << endl;
+    }
+    else
+    {
+    s2();
+    }
     }
 };
 /*------------------------------------------------------------------------------------------------------------------------------*/
